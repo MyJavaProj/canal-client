@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "name": "myProps",
+      "type": "com.fxrh.config.MyProps",
+      "sourceType": "com.fxrh.config.MyProps"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.fxrh.config.DruidConfig",
+      "sourceMethod": "public javax.sql.DataSource dataSource() "
+    }
+  ],
+  "properties": [
+    {
+      "name": "myProps.address",
+      "type": "java.lang.String",
+      "sourceType": "com.fxrh.config.MyProps"
+    },
+    {
+      "name": "myProps.destinations",
+      "type": "java.lang.String",
+      "sourceType": "com.fxrh.config.MyProps"
+    },
+    {
+      "name": "myProps.password",
+      "type": "java.lang.String",
+      "sourceType": "com.fxrh.config.MyProps"
+    },
+    {
+      "name": "myProps.port",
+      "type": "java.lang.Long",
+      "sourceType": "com.fxrh.config.MyProps"
+    },
+    {
+      "name": "myProps.push-url",
+      "type": "java.lang.String",
+      "sourceType": "com.fxrh.config.MyProps"
+    },
+    {
+      "name": "myProps.username",
+      "type": "java.lang.String",
+      "sourceType": "com.fxrh.config.MyProps"
+    }
+  ],
+  "hints": []
+}

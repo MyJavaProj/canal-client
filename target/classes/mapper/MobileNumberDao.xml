@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fxrh.dao.MobileNumSearchDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.fxrh.entity.MobileNumber" id="mobileNumberMap">
+        <!-- <result property="mobile" column="mobile"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="companyId" column="company_id"/>
+        <result property="emergency" column="emergency"/>
+        <result property="type" column="type"/>
+        <result property="bindTel" column="bind_tel"/>
+        <result property="bindTel2" column="bind_tel2"/>
+        <result property="callerShow" column="caller_show"/>
+        <result property="disable" column="disable"/>
+        <result property="createTime" column="create_time"/>
+        <result property="expiration" column="expiration"/>
+        <result property="test" column="test"/> -->
+    </resultMap>
+
+	<select id="queryList" resultType="com.fxrh.entity.MobileNumber">
+		select * from mobile_number
+        <where>
+        <if test="mobile != null and mobile.trim() != ''">
+				 `mobile` = #{mobile} or `mobile` like concat('%',#{mobile},'%')
+		</if>
+		<if test="company_id != null and company_id.trim() != ''">
+				 `company_id` = #{company_id} or `company_id` like concat('%',#{company_id},'%')
+		</if> 
+		</where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	<select id="queryTotal" resultType="int">
+		select count(*) from mobile_number 
+		<where>
+			<if test="mobile != null and mobile.trim() != ''">
+				 `mobile` = #{mobile} or `mobile` like concat('%',#{mobile},'%')
+			</if>
+			<if test="company_id != null and company_id.trim() != ''">
+				 `company_id` = #{company_id} or `company_id` like concat('%',#{company_id},'%')
+			</if> 
+		</where>
+	</select>  
+</mapper>

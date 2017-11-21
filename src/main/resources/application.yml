@@ -1,0 +1,159 @@
+server:
+  context-path: /canal-client
+  tomcat:
+    max-threads: 2000 
+    min-spare-threads: 100
+logging:
+  level:
+    root: INFO
+    org.hibernate: ERROR
+    com.fxrh.ykt: DEBUG
+    
+spring: 
+  application:
+    name: canal-client
+  profiles:
+    active: test
+  thymeleaf: 
+    cache: false 
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: 
+    port: 6379
+    pool:
+      max-active: 10000       #连接池的最大数据库连接数。设为0表示无限制
+      max-wait: 10            #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+      max-idle: 200           #最大空闲数，数据库连接的最大空闲时间。超过空闲时间，数据库连接将被标记为不可用，然后被释放。设为0表示无限制。
+      min-idle: 100           # 连接池中的最小空闲连接 
+  data:
+    mongodb:
+     uri: mongodb://127.0.0.1:27017/test
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/test
+    username: sa
+    password: 123
+    driverClassName: com.mysql.jdbc.Driver
+    initialSize: 20
+    minIdle: 25
+    maxActive: 300
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  http: 
+    encoding: 
+     charset: UTF-8
+     enabled: true
+     force: true
+        
+
+---
+# 9080
+spring:
+  profiles: 9080
+server:
+  port: 9080
+logging:
+  pattern:
+    console: PC.9080 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+    file:  PF.9080 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+---
+# 9081
+spring:
+  profiles: 9081
+server:
+  port: 9081
+logging:
+  pattern:
+    console: PC.9081 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+    file:  PF.9081 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+
+---
+# dev test
+spring:
+  profiles: dev_test
+  redis:
+    database: 1
+    host: 127.0.0.1
+    password: 
+    port: 6379
+    pool:
+      max-active: 10000       #连接池的最大数据库连接数。设为0表示无限制
+      max-wait: 10            #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+      max-idle: 100          #最大空闲数，数据库连接的最大空闲时间。超过空闲时间，数据库连接将被标记为不可用，然后被释放。设为0表示无限制。
+      min-idle: 100             # 连接池中的最小空闲连接 
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/test
+  datasource:
+    data: 
+    url: jdbc:mysql://127.0.0.1:3306/test
+    username: sa
+    password: 123
+   
+server:
+  port: 8084
+logging:
+  level: 
+    com.fxrh.ykt: DEBUG
+  pattern:
+    console: PC.8084 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+    file:  PF.8084 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+  
+
+---
+# test
+spring:
+  profiles: test
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password:
+    port: 6379
+    pool:
+      max-active: 100       #连接池的最大数据库连接数。设为0表示无限制
+      max-wait: 10            #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+      max-idle: 5          #最大空闲数，数据库连接的最大空闲时间。超过空闲时间，数据库连接将被标记为不可用，然后被释放。设为0表示无限制。
+      min-idle: 1             # 连接池中的最小空闲连接 
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/test
+  datasource:
+    data: 
+    url: jdbc:mysql://localhost:3306/test
+    username: sa
+    password: 123
+
+  
+server:
+  port: 9091
+logging:
+  pattern:
+    console: PC.9091 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+    file:  PF.9091 | %d{yyyy-MM-dd HH:mm:ss} | [%p %c %t] | %m%n
+myProps:
+    push_url: http://:3306/ykt-pool/t2.htm
+    address: 192.168.1.105
+    port: 32121 
+    destinations: dblocal
+    username:
+    password:
+
+
+

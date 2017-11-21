@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fxrh.ykt.number.dao.CompanyAcDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.fxrh.entity.CompanyAccount" id="companyAccountMap">
+        <result property="id" column="id"/>
+        <result property="appKey" column="app_key"/>
+        <result property="appSecret" column="app_secret"/>
+        <result property="ax_ext_audio_x" column="ax_ext_audio_x"/>
+        <result property="axbAudioOtherCallX" column="axb_audio_other_call_x"/>
+        <result property="axExtNoTelAudio" column="ax_ext_no_tel_audio"/>
+    </resultMap>
+
+    <select id="queryObject" resultType="com.fxrh.entity.CompanyAccount">
+        select * from company_account where id = #{value}
+    </select>
+
+    <select id="queryList" resultType="com.fxrh.entity.CompanyAccount">
+        select * from company_account 
+        <where>
+            <if test="key != null and key.trim() != ''">
+                 `id` = #{key} or `app_Key` like concat('%',#{key},'%')
+            </if>
+        </where>
+        order by id desc 
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+    
+    <select id="queryTotal" resultType="int">
+        select count(*) from company_account 
+        <where>
+            <if test="key != null and key.trim() != ''">
+                 `id` = #{key} or `app_Key` like concat('%',#{key},'%')
+            </if>
+        </where>
+    </select>
+    
+    <select id="queryCompanyList" resultType="com.fxrh.entity.CompanyAccount">
+        select * from company_account order by id desc 
+    </select>
+     
+    <insert id="save" parameterType="com.fxrh.entity.CompanyAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into company_account
+        (
+            `app_key`, 
+            `app_secret`, 
+            `ax_ext_audio_x`, 
+            `axb_audio_other_call_x`, 
+            `ax_ext_no_tel_audio`
+        )
+        values
+        (
+            #{appKey}, 
+            #{appSecret}, 
+            #{axExtAudioX}, 
+            #{axbAudioOtherCallX}, 
+            #{axExtNoTelAudio}
+        )
+    </insert>
+     
+    <update id="update" parameterType="com.fxrh.entity.CompanyAccount">
+        update company_account 
+        <set>
+            <if test="appKey != null">`app_key` = #{appKey}, </if>
+            <if test="appSecret != null">`app_secret` = #{appSecret}, </if>
+            <if test="axExtAudioX != null">`ax_ext_audio_x` = #{axExtAudioX}, </if>
+            <if test="axbAudioOtherCallX != null">`axb_audio_other_call_x` = #{axbAudioOtherCallX}, </if>
+            <if test="axExtNoTelAudio != null">`ax_ext_no_tel_audio` = #{axExtNoTelAudio}</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
